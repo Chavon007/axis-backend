@@ -5,7 +5,7 @@ export const paymentController = async (req, res) => {
     const { checkoutdate, checkindate, roomid, fullname } = req.body;
 
     if (!checkindate || !checkoutdate || !roomid || !fullname) {
-      res
+      return res
         .status(404)
         .json({ succes: false, message: "Please fill all requred fields" });
     }
@@ -13,14 +13,14 @@ export const paymentController = async (req, res) => {
     const end = new Date(checkoutdate);
 
     if (end <= start) {
-      res
+      return res
         .status(401)
         .json({ succes: false, message: "Invalid checkin/checkout date" });
     }
     const room = await getRoomdetails(roomid);
 
     if (!room) {
-      res.status(404).json({ succes: false, message: "Room not found" });
+      return res.status(404).json({ succes: false, message: "Room not found" });
     }
 
     const nights = Math.ceil(
