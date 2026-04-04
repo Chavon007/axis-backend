@@ -1,24 +1,46 @@
-import { payment, getFormData, getRoomdetails } from "../service/payment";
+import { payment, getRoomdetails } from "../service/payment";
 
-const paymentController = async (req, res) => {
+export const paymentController = async (req, res) => {
   try {
-    const { checkoutdate, checkindate, amount } = req.body;
+    const { checkoutdate, checkindate, roomid, fullname } = req.body;
 
+    if (!checkindate || !checkoutdate || !roomid || !fullname) {
+      res
+        .status(404)
+        .json({ succes: false, message: "Please fill all requred fields" });
+    }
     const start = new Date(checkindate);
     const end = new Date(checkoutdate);
 
-    const nights =
-      Math.ceil(end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24);
+    if (end <= start) {
+      res
+        .status(401)
+        .json({ succes: false, message: "Invalid checkin/checkout date" });
+    }
+    const room = await getRoomdetails(roomid);
 
-    if (nights <= 0) return null;
-    if (checkindate >= checkoutdate) {
-      throw new Error("Wrong check out and check in date");
+    if (!room) {
+      res.status(404).json({ succes: false, message: "Room not found" });
     }
 
-    const total = nights * amount;
+    const nights = Math.ceil(
+      (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24),
+    );
 
-    await total.payment;
+    const total = nights * room.price;
+    const data = await payment({
+      checkindate,
+      checkoutdate,
+      amount: total,
+      hotelname: room.hotelname,
+      roomname: room.name,
+      room_type: room.room_type,
+      room_id: room.id,
+      status: "pending",
+    });
+
+    res.status(200).json({ succes: true, data: data, nights, total });
   } catch (err) {
-    res.status(500).json({ succes: true, message: err.message });
+    res.status(500).json({ succes: false, message: err.message });
   }
 };

@@ -35,18 +35,3 @@ export const getRoomdetails = async () => {
   return data;
 };
 
-export const getFormData = async () => {
-  const { data, error } = supabase
-    .from("formDetails")
-    .select("*")
-    .eq("fullName")
-    .single();
-
-  if (error) {
-    throw new Error(error.message);
-  }
-
-  return data;
-};
-
-
