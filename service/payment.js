@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const supabase_url = process.env.SUPABASE_URL;
-const project_url = process.env.PROJECT_URL;
+const project_url = process.env.PROJECT_KEY;
 
 const supabase = createClient(supabase_url, project_url);
 

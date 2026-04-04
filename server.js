@@ -1,6 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
-import checkInDate from "./controller/payment.js";
+import checkInDate from "./route/payment.js";
 
 dotenv.config();
 

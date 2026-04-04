@@ -1,4 +1,4 @@
-import { payment, getRoomdetails } from "../service/payment";
+import { payment, getRoomdetails } from "../service/payment.js";
 
 export const paymentController = async (req, res) => {
   try {
