@@ -1,6 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 import dotenv from "dotenv";
 
+
 dotenv.config();
 
 const supabase_url = process.env.SUPABASE_URL;
@@ -34,3 +35,5 @@ export const getRoomdetails = async (roomid) => {
 
   return data;
 };
+
+
