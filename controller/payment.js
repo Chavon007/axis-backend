@@ -65,7 +65,11 @@ export const makePaymentController = async (req, res) => {
     }
     const response = await axios.post(
       "https://api.paystack.co/transaction/initialize",
-      { email, amount: amount * 100 },
+      {
+        email,
+        amount: amount * 100,
+        callback_url: "axisapp://payment/callback",
+      },
       {
         headers: {
           Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
