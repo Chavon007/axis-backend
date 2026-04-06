@@ -22,9 +22,9 @@ export const payment = async (bookingDetails) => {
 };
 
 export const getRoomdetails = async (roomid) => {
-  const { data, error } = supabase
+  const { data, error } = await supabase
     .from("hotelrooms")
-    .select("")
+    .select("*")
     .eq("id", roomid)
     .single();
 
