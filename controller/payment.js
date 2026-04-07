@@ -76,8 +76,6 @@ export const makePaymentController = async (req, res) => {
       {
         email,
         amount: amount * 100,
-        callback_url:
-          "https://satinlike-unserviceably-hana.ngrok-free.dev/api/payment/callback",
       },
       {
         headers: {
@@ -111,7 +109,7 @@ export const makePaymentController = async (req, res) => {
   }
 };
 export const paymentCallbackController = async (req, res) => {
-  const { reference } = req.body;
+  const { reference } = req.query;
 
   res.redirect(`axisapp://payment/callback?reference=${reference}`);
 };
