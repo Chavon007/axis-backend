@@ -40,10 +40,18 @@ export const paymentController = async (req, res) => {
 
 export const makePaymentController = async (req, res) => {
   try {
-    const { email, amount, checkoutdate, checkindate, roomid, fullname } =
-      req.body;
+    const {
+      email,
+      amount,
+      checkoutdate,
+      checkindate,
+      roomid,
+      fullname,
+      formid,
+    } = req.body;
 
     if (
+      !formid ||
       !email ||
       !amount ||
       !checkindate ||
@@ -93,6 +101,7 @@ export const makePaymentController = async (req, res) => {
       room_type: room.room_type,
       room_id: room.id,
       status: "confirmed",
+      formid,
     });
     res
       .status(200)
