@@ -1,4 +1,4 @@
-import { supabase } from "../utliz/supabseconncet";
+import { supabase } from "../utliz/supabseconncet.js";
 
 const requireAuth = async (req, res, next) => {
   const authHeader = req.headers.authorization;
