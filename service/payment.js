@@ -1,13 +1,4 @@
-import { createClient } from "@supabase/supabase-js";
-import dotenv from "dotenv";
-
-
-dotenv.config();
-
-const supabase_url = process.env.SUPABASE_URL;
-const project_url = process.env.PROJECT_KEY;
-
-const supabase = createClient(supabase_url, project_url);
+import { supabase } from "../utliz/supabseconncet.js";
 
 export const payment = async (bookingDetails) => {
   const { data, error } = await supabase
@@ -35,5 +26,3 @@ export const getRoomdetails = async (roomid) => {
 
   return data;
 };
-
-
