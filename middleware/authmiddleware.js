@@ -6,7 +6,7 @@ const requireAuth = async (req, res, next) => {
   if (!authHeader)
     return res.status(401).json({ success: false, message: "No token found" });
 
-  const token = authHeader.split(" ")[0];
+  const token = authHeader.split(" ")[1];
   const {
     data: { user },
     error,
